@@ -1,0 +1,15 @@
+<html>
+
+<body>
+    <h1> hello </h1>
+    <button id="btn">按我有惊喜</button>
+    <script type="module">
+        import {showMessage, scm} from "./my_methods.js"
+        document.getElementById("btn").onclick = function () {
+            showMessage();
+            scm();
+        }
+    </script>
+</body>
+
+</html>
