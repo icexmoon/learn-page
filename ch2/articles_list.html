@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        文章分类：<input type="text" v-model="category" />
+        发布状态：<input type="text" v-model="state" />
+        <button @click="search">搜索</button>
+        <table>
+            <tr>
+                <td>文章标题</td>
+                <td>分类</td>
+                <td>发表时间</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+            <tr v-for="article in articles">
+                <td>{{article.title}}</td>
+                <td>{{article.category}}</td>
+                <td>{{article.time}}</td>
+                <td>{{article.state}}</td>
+                <td>
+                    <a>编辑</a>
+                    <a>删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module">
+        import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+        createApp({
+            data() {
+                return {
+                    articles: [],
+                    category: '',
+                    state: ''
+                }
+            },
+            methods: {
+                loadArticles() {
+                    axios.get("http://localhost:8080/article/getAll").then(result => {
+                        this.articles = result.data
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                },
+                search() {
+                    axios.get("http://localhost:8080/article/search", {
+                        params: {
+                            category: this.category,
+                            state: this.state
+                        }
+                    }).then(result => {
+                        this.articles = result.data
+                    }).then(error => {
+                        console.log(error)
+                    })
+                }
+            },
+            mounted() {
+                this.loadArticles();
+            }
+        }).mount("#app");
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="getAllArticles()">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function getAllArticles() {
+            axios.get('http://localhost:8080/article/getAll').then(result => {
+                console.log(result.data)
+            }).catch(error => {
+                console.log(error)
+            });
+        }
+        function addArticle(){
+            axios.post('http://localhost:8080/article/add',{
+                title: '哈利波特',
+                category: '小说',
+                time: '2001-10-01',
+                state: '已发布'
+            })
+        }
+    </script>
+</body>
+
+</html>

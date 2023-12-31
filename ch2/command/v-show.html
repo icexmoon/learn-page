@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        商品价格：
+        <span v-show="customer.level>=1 && customer.level<=2">9.9</span>
+        <span v-show="customer.level>2 && customer.level<=3">19.9</span>
+        <span v-show="customer.level>3">29.9</span>
+    </div>
+    <script type="module">
+        import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        createApp({
+            data() {
+                return {
+                    customer: {
+                        level: 3,
+                        name: "JackChen"
+                    }
+                }
+            }
+        }).mount("#app");
+    </script>
+</body>
+
+</html>
